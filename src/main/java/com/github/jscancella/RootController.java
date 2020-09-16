@@ -43,16 +43,20 @@ public class RootController {
   @FXML protected void handleScanFoldersButtonAction(ActionEvent event) {
     //TODO
     logger.info("Running handleScanFoldersButtonAction()");
+    progressBar.setProgress(-1D); //show that the application is working
+    progressBar.setProgress(1); //show that the application is done
   }
   
   @FXML protected void handleAddFolderButtonAction(ActionEvent event) {
     //TODO
-    logger.info("Running handleAddFolderButtonAction()");
-    
+    logger.info("Running handleAddFolderButtonAction()");    
     final DirectoryChooser chooser = new DirectoryChooser();
     chooser.setTitle("JavaFX Projects");
     final File selectedDirectory = chooser.showDialog(rootPane.getScene().getWindow());
     logger.info("Selected folder [{}]", selectedDirectory);
+    if(selectedDirectory != null) {
+      scanFoldersButton.setDisable(false);
+    }
   }
   
   @FXML protected void handleQuitAction(ActionEvent event) {
