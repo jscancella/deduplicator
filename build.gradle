@@ -37,7 +37,7 @@ javafx {
 processResources {
 	def formattedDate = LocalDate.now().format(java.time.format.DateTimeFormatter.ofLocalizedDate(java.time.format.FormatStyle.MEDIUM))
     filesMatching('**/MessageBundle.properties') {
-    	filter(ReplaceTokens, tokens:["VERSION": "Version: " + project.version, "RELEASED": "Released: " + formattedDate])
+    	filter(ReplaceTokens, tokens:["VERSION": project.version.toString(), "RELEASED": formattedDate.toString()])
     }
 }
 

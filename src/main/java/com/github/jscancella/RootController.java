@@ -1,5 +1,6 @@
 package com.github.jscancella;
 
+import java.io.File;
 import java.util.ResourceBundle;
 
 import org.slf4j.Logger;
@@ -14,11 +15,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.DirectoryChooser;
 
 public class RootController {
   private static final Logger logger = LoggerFactory.getLogger(RootController.class);
   private static final ResourceBundle messages = ResourceBundle.getBundle("MessageBundle");
   
+  @FXML private VBox rootPane;
   @FXML private ProgressBar progressBar;
   @FXML private ScrollPane foldersToScanScrollPane;
   @FXML private ScrollPane duplicateFilesFoundScrollPane;
@@ -41,9 +45,14 @@ public class RootController {
     logger.info("Running handleScanFoldersButtonAction()");
   }
   
-  @FXML protected void handleAddFolderButtonButtonAction(ActionEvent event) {
+  @FXML protected void handleAddFolderButtonAction(ActionEvent event) {
     //TODO
-    logger.info("Running handleAddFolderButtonButtonAction()");
+    logger.info("Running handleAddFolderButtonAction()");
+    
+    final DirectoryChooser chooser = new DirectoryChooser();
+    chooser.setTitle("JavaFX Projects");
+    final File selectedDirectory = chooser.showDialog(rootPane.getScene().getWindow());
+    logger.info("Selected folder [{}]", selectedDirectory);
   }
   
   @FXML protected void handleQuitAction(ActionEvent event) {
@@ -53,9 +62,8 @@ public class RootController {
   }
   
   @FXML protected void handleAboutAction(ActionEvent event) {
-    //TODO
     logger.info("Running handleAboutAction()");
-    Dialog<String> dialog = new Dialog<>();
+    final Dialog<String> dialog = new Dialog<>();
     dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonData.OK_DONE));
     dialog.setResizable(true);
     dialog.setContentText(messages.getString("version") + "\n" + messages.getString("released"));    

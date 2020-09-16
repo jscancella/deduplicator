@@ -15,10 +15,10 @@ public class App extends Application{
 
   @Override
   public void start(final Stage stage) throws Exception{
-    URL fxmlUrl = getClass().getClassLoader().getResource("dedupUI.fxml");
+    final URL fxmlUrl = getClass().getClassLoader().getResource("dedupUI.fxml");
     
-    Parent root = FXMLLoader.load(fxmlUrl);
-    Scene scene = new Scene(root);
+    final Parent root = FXMLLoader.load(fxmlUrl);
+    final Scene scene = new Scene(root);
     
     stage.setTitle("Deplicate Files"); //TODO add in version?
     stage.setScene(scene);
