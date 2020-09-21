@@ -5,7 +5,7 @@ plugins {
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
     id 'org.openjfx.javafxplugin' version '0.0.8'
-    id "org.beryx.jlink" version "2.22.0"
+    id 'org.beryx.runtime' version '1.11.4'
 }
 
 repositories {
@@ -15,8 +15,9 @@ repositories {
 sourceCompatibility = '14';
 
 if(project.version == "unspecified"){
-  String now = new Date().format( 'MMM-dd-yyyy_HH-mm-ss' )
-  project.version = "1.0.0-${now}-SNAPSHOT"
+  //String now = new Date().format( 'MMM-dd-yyyy_HH-mm-ss' )
+  //project.version = "1.0.0-${now}-SNAPSHOT"
+  project.version = "1.0.0"
 }
 
 dependencies {
@@ -28,6 +29,7 @@ dependencies {
 application {
     // Define the main class for the application.
     mainClassName = 'com.github.jscancella.App'
+    applicationName = 'SuperDeDuper'
 }
 
 javafx {
@@ -46,10 +48,16 @@ test {
     useJUnitPlatform()
 }
 
-jlink {
+runtime {
     options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
     launcher {
-        name = 'helloFX'
+        noConsole = true
     }
-    forceMerge('log4j-api')
+    jpackage {
+        def currentOs = org.gradle.internal.os.OperatingSystem.current()
+        installerOptions += ['--resource-dir', "build/jpackage/SuperDeDuper/lib"]
+        if(currentOs.windows) {
+            installerOptions += ['--win-per-user-install', '--win-dir-chooser', '--win-menu', '--win-shortcut']
+        }
+    }
 }
