@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -31,22 +32,33 @@
         </Menu>
       </menus>
     </MenuBar>
-      <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="2.147483647E9" progress="0.0" />
-      <SplitPane dividerPositions="0.29797979797979796" prefHeight="2.147483647E9" prefWidth="2.147483647E9">
+      <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="640.0" progress="0.0" />
+      <SplitPane dividerPositions="0.3" prefHeight="314.0" prefWidth="640.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <ScrollPane fx:id="foldersToScanScrollPane" prefHeight="200.0" prefWidth="200.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <ScrollPane prefHeight="2.147483647E9" prefWidth="2.147483647E9" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0">
+                           <children>
+                              <ListView fx:id="foldersToScanListView" prefHeight="321.0" prefWidth="174.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </ScrollPane>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Duplicate Files:" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Duplicate Files (select to delete):" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
                      <font>
                         <Font size="25.0" />
                      </font>
                   </Label>
-                  <ScrollPane fx:id="duplicateFilesFoundScrollPane" layoutY="43.0" prefHeight="230.0" prefWidth="446.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                  <ScrollPane fx:id="duplicateFilesFoundScrollPane" layoutY="43.0" prefHeight="230.0" prefWidth="446.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                     <content>
+                        <VBox fx:id="duplicateFilesVBox" prefHeight="285.0" prefWidth="428.0" />
+                     </content></ScrollPane>
                </children>
             </AnchorPane>
         </items>
@@ -56,7 +68,7 @@
           <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Delete Files" />
             <Button fx:id="scanFoldersButton" disable="true" mnemonicParsing="false" onAction="#handleScanFoldersButtonAction" text="Scan Folders" />
             <Button fx:id="addFolderButton" mnemonicParsing="false" onAction="#handleAddFolderButtonAction" text="Add Folder to Scan" />
-            <Button disable="true" mnemonicParsing="false" prefHeight="26.0" prefWidth="256.0" text="Remove Folder" />
+            <Button fx:id="removeFolderButton" disable="true" mnemonicParsing="false" onAction="#handleRemoveFolderAction" prefHeight="26.0" prefWidth="256.0" text="Remove Folder" />
         </buttons>
          <VBox.margin>
             <Insets />

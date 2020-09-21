@@ -1,6 +1,7 @@
 package com.github.jscancella;
 
 import java.io.File;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 
 import org.slf4j.Logger;
@@ -12,9 +13,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialog;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 
@@ -24,53 +26,67 @@ public class RootController {
   
   @FXML private VBox rootPane;
   @FXML private ProgressBar progressBar;
-  @FXML private ScrollPane foldersToScanScrollPane;
-  @FXML private ScrollPane duplicateFilesFoundScrollPane;
+  @FXML private ListView<File> foldersToScanListView;
+  @FXML private VBox duplicateFilesVBox;
   @FXML private Button deleteButton;
   @FXML private Button scanFoldersButton;
+  @FXML private Button removeFolderButton;
   
   @FXML
   public void initialize() {
-    //TODO
-    logger.info("Running initalize()");
+    logger.debug("Running initalize()");
   }
   
   @FXML protected void handleDeleteButtonAction(ActionEvent event) {
-    //TODO delete selected files
-    logger.info("Running handleDeleteButtonAction()");
+    logger.debug("Running handleDeleteButtonAction()");
+    
+    duplicateFilesVBox.getChildren().stream()
+      .filter(n -> n instanceof CheckBox) //remove separators
+      .map(n -> (CheckBox)n)
+      .filter(cb -> cb.isSelected())
+      .map(cb -> Paths.get(cb.getText()))
+      .forEach(file -> logger.info("DEBUG: Would have deleted [{}]", file));
   }
   
   @FXML protected void handleScanFoldersButtonAction(ActionEvent event) {
-    //TODO
-    logger.info("Running handleScanFoldersButtonAction()");
+    logger.debug("Running handleScanFoldersButtonAction()");
     progressBar.setProgress(-1D); //show that the application is working
-    progressBar.setProgress(1); //show that the application is done
+    duplicateFilesVBox.getChildren().clear();
+    
+    Platform.runLater(new ScanFoldersTask(duplicateFilesVBox, foldersToScanListView, deleteButton, progressBar));
   }
   
   @FXML protected void handleAddFolderButtonAction(ActionEvent event) {
-    //TODO
-    logger.info("Running handleAddFolderButtonAction()");    
+    logger.debug("Running handleAddFolderButtonAction()");    
     final DirectoryChooser chooser = new DirectoryChooser();
     chooser.setTitle("JavaFX Projects");
     final File selectedDirectory = chooser.showDialog(rootPane.getScene().getWindow());
-    logger.info("Selected folder [{}]", selectedDirectory);
+    logger.debug("Selected folder [{}]", selectedDirectory);
     if(selectedDirectory != null) {
       scanFoldersButton.setDisable(false);
+      removeFolderButton.setDisable(false);
+      foldersToScanListView.getItems().add(selectedDirectory);
     }
   }
   
   @FXML protected void handleQuitAction(ActionEvent event) {
-    //TODO
-    logger.info("Running handleQuitAction()");
+    logger.debug("Running handleQuitAction()");
     Platform.exit();
   }
   
   @FXML protected void handleAboutAction(ActionEvent event) {
-    logger.info("Running handleAboutAction()");
+    logger.debug("Running handleAboutAction()");
     final Dialog<String> dialog = new Dialog<>();
     dialog.getDialogPane().getButtonTypes().add(new ButtonType("OK", ButtonData.OK_DONE));
     dialog.setResizable(true);
     dialog.setContentText(messages.getString("version") + "\n" + messages.getString("released"));    
     dialog.showAndWait();
+  }
+  
+  @FXML protected void handleRemoveFolderAction(ActionEvent event) {
+    logger.debug("Running handleRemoveFolderAction()");
+    foldersToScanListView.getItems().removeAll(foldersToScanListView.getSelectionModel().getSelectedItems());
+    scanFoldersButton.setDisable(foldersToScanListView.getItems().size() == 0);
+    removeFolderButton.setDisable(foldersToScanListView.getItems().size() == 0);
   }
 }

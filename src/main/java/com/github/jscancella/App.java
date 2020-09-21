@@ -20,7 +20,7 @@ public class App extends Application{
     final Parent root = FXMLLoader.load(fxmlUrl);
     final Scene scene = new Scene(root);
     
-    stage.setTitle("Deplicate Files"); //TODO add in version?
+    stage.setTitle("Deplicate Files");
     stage.setScene(scene);
     stage.show();
   }
