@@ -32,24 +32,16 @@
         </Menu>
       </menus>
     </MenuBar>
-      <ProgressBar fx:id="totalProgressBar" prefHeight="20.0" prefWidth="640.0" progress="0.0" />
-      <ProgressBar fx:id="currentFileProgressBar" prefHeight="20.0" prefWidth="643.0" progress="0.0" />
+      <ProgressBar fx:id="totalProgressBar" minHeight="15.0" prefHeight="20.0" prefWidth="640.0" progress="0.0" />
+      <ProgressBar fx:id="currentFileProgressBar" minHeight="15.0" prefHeight="20.0" prefWidth="643.0" progress="0.0" />
       <SplitPane dividerPositions="0.3" prefWidth="2.147483647E9">
         <items>
           <AnchorPane minHeight="160.0" minWidth="100.0">
                <children>
-                  <ScrollPane vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0">
-                           <children>
-                              <ListView fx:id="foldersToScanListView" prefHeight="321.0" prefWidth="174.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </ScrollPane>
+                  <ListView fx:id="foldersToScanListView" prefHeight="321.0" prefWidth="174.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="2.147483647E9">
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" text="Duplicate Files (select to delete):" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
@@ -64,7 +56,7 @@
             </AnchorPane>
         </items>
       </SplitPane>
-      <ButtonBar buttonMinWidth="50.0" prefHeight="40.0" prefWidth="2.147483647E9">
+      <ButtonBar buttonMinWidth="50.0" maxHeight="40.0" prefHeight="40.0" prefWidth="2.147483647E9">
         <buttons>
           <Button fx:id="deleteButton" disable="true" mnemonicParsing="false" onAction="#handleDeleteButtonAction" text="Delete Files" />
             <Button fx:id="scanFoldersButton" disable="true" mnemonicParsing="false" onAction="#handleScanFoldersButtonAction" text="Scan Folders" />

@@ -26,7 +26,7 @@ public class App extends Application{
     final Parent root = FXMLLoader.load(fxmlUrl);
     final Scene scene = new Scene(root);
     
-    stage.setTitle("Deplicate Files");
+    stage.setTitle("Super De-Duper!");
     stage.setScene(scene);
     stage.show();
   }

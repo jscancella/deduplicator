@@ -19,6 +19,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.Separator;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
 public class ScanFoldersTask implements Runnable{
@@ -84,7 +85,9 @@ public class ScanFoldersTask implements Runnable{
       logger.debug("Processing duplicate group");
       for(Path file : duplicateGroup) {
         logger.debug("Adding duplicate file [{}]  to UI as checkbox.", file);
-        duplicateFilesVBox.getChildren().add(new CheckBox(file.toAbsolutePath().toString()));
+        final CheckBox checkbox = new CheckBox(file.toAbsolutePath().toString());
+        checkbox.setMinWidth(Region.USE_PREF_SIZE);
+        duplicateFilesVBox.getChildren().add(checkbox);
       }
       logger.debug("Adding separator to UI.");
       duplicateFilesVBox.getChildren().add(new Separator(Orientation.HORIZONTAL));

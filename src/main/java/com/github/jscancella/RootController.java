@@ -22,6 +22,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 
@@ -37,11 +38,14 @@ public class RootController {
   @FXML private Button deleteButton;
   @FXML private Button scanFoldersButton;
   @FXML private Button removeFolderButton;
+  @FXML private ScrollPane duplicateFilesFoundScrollPane;
   
-//  @FXML
-//  public void initialize() {
-//    logger.debug("Running initalize()");
-//  }
+  @FXML
+  public void initialize() {
+    logger.debug("Running initalize()");
+    totalProgressBar.prefWidthProperty().bind(rootPane.widthProperty());
+    currentFileProgressBar.prefWidthProperty().bind(rootPane.widthProperty());
+  }
   
   @FXML protected void handleDeleteButtonAction(ActionEvent event) {
     logger.debug("Running handleDeleteButtonAction()");
