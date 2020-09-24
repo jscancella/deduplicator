@@ -32,12 +32,13 @@
         </Menu>
       </menus>
     </MenuBar>
-      <ProgressBar fx:id="progressBar" prefHeight="20.0" prefWidth="640.0" progress="0.0" />
-      <SplitPane dividerPositions="0.3" prefHeight="314.0" prefWidth="640.0">
+      <ProgressBar fx:id="totalProgressBar" prefHeight="20.0" prefWidth="640.0" progress="0.0" />
+      <ProgressBar fx:id="currentFileProgressBar" prefHeight="20.0" prefWidth="643.0" progress="0.0" />
+      <SplitPane dividerPositions="0.3" prefWidth="2.147483647E9">
         <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <AnchorPane minHeight="160.0" minWidth="100.0">
                <children>
-                  <ScrollPane prefHeight="2.147483647E9" prefWidth="2.147483647E9" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ScrollPane vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
@@ -50,12 +51,12 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" text="Duplicate Files (select to delete):" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                  <Label alignment="CENTER" contentDisplay="CENTER" text="Duplicate Files (select to delete):" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <font>
-                        <Font size="25.0" />
+                        <Font size="18.0" />
                      </font>
                   </Label>
-                  <ScrollPane fx:id="duplicateFilesFoundScrollPane" layoutY="43.0" prefHeight="230.0" prefWidth="446.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0">
+                  <ScrollPane fx:id="duplicateFilesFoundScrollPane" hbarPolicy="ALWAYS" layoutY="25.0" prefHeight="291.0" prefWidth="444.0" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="30.0">
                      <content>
                         <VBox fx:id="duplicateFilesVBox" prefHeight="285.0" prefWidth="428.0" />
                      </content></ScrollPane>

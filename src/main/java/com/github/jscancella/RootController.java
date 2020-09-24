@@ -1,8 +1,13 @@
 package com.github.jscancella;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,35 +30,41 @@ public class RootController {
   private static final ResourceBundle messages = ResourceBundle.getBundle("MessageBundle");
   
   @FXML private VBox rootPane;
-  @FXML private ProgressBar progressBar;
+  @FXML private ProgressBar totalProgressBar;
+  @FXML private ProgressBar currentFileProgressBar;
   @FXML private ListView<File> foldersToScanListView;
   @FXML private VBox duplicateFilesVBox;
   @FXML private Button deleteButton;
   @FXML private Button scanFoldersButton;
   @FXML private Button removeFolderButton;
   
-  @FXML
-  public void initialize() {
-    logger.debug("Running initalize()");
-  }
+//  @FXML
+//  public void initialize() {
+//    logger.debug("Running initalize()");
+//  }
   
   @FXML protected void handleDeleteButtonAction(ActionEvent event) {
     logger.debug("Running handleDeleteButtonAction()");
     
-    duplicateFilesVBox.getChildren().stream()
+    List<Path> toDelete = duplicateFilesVBox.getChildren().stream()
       .filter(n -> n instanceof CheckBox) //remove separators
       .map(n -> (CheckBox)n)
       .filter(cb -> cb.isSelected())
       .map(cb -> Paths.get(cb.getText()))
-      .forEach(file -> logger.info("DEBUG: Would have deleted [{}]", file));
+      .collect(Collectors.toList());
+    for(Path file : toDelete) {
+      try {
+        Files.delete(file);
+      } catch (IOException e) {
+        logger.error("Couldn't delete [{}]", file);
+      }
+    }
   }
   
   @FXML protected void handleScanFoldersButtonAction(ActionEvent event) {
+    deleteButton.setDisable(true);
     logger.debug("Running handleScanFoldersButtonAction()");
-    progressBar.setProgress(-1D); //show that the application is working
-    duplicateFilesVBox.getChildren().clear();
-    
-    Platform.runLater(new ScanFoldersTask(duplicateFilesVBox, foldersToScanListView, deleteButton, progressBar));
+    new Thread(new ScanFoldersTask(duplicateFilesVBox, foldersToScanListView, deleteButton, totalProgressBar, currentFileProgressBar)).start();
   }
   
   @FXML protected void handleAddFolderButtonAction(ActionEvent event) {
